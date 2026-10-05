@@ -5,7 +5,6 @@ namespace Omnibus\DbSchenker;
 use Omnibus\Config;
 use Omnibus\DbSchenker\Action\ShippingAction;
 use Omnibus\DbSchenker\Action\TrackingAction;
-use Omnibus\Exception\InvalidConfigException;
 use Omnibus\GatewayFactory;
 use Symfony\Component\HttpClient\HttpClient;
 
@@ -30,7 +29,7 @@ final class DbSchenkerGatewayFactory extends GatewayFactory
             'api_key' => null,
             'account_number' => null,
             'omnibus.api' => function (Config $c) {
-                $http = $this->http ?? (class_exists(HttpClient::class) ? HttpClient::create() : throw new InvalidConfigException('The "db-schenker" gateway needs symfony/http-client.'));
+                $http = $this->http ?? HttpClient::create();
 
                 return new Api($http, $c['api_key'] ?: null, $c['account_number'] ?: null);
             },

@@ -5,6 +5,13 @@ eSchenker's public tracking (no credentials), and land-transport bookings throug
 Open API when an API key is configured. Prices come from configuration (`rates`): Schenker quotes
 by contract.
 
+```php
+$gateway = (new DbSchenkerGatewayFactory($http))->create($options);   // $http: the application's HTTP client - none given, the factory makes its own; the options below
+```
+
+No framework needed: the package requires `glitchr/omnibus` and `symfony/http-client`. In a
+Symfony application, the same through the bundle's configuration:
+
 ```yaml
 omnibus:
     gateways:
